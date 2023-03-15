@@ -17,6 +17,30 @@ class PlantsController < ApplicationController
     plant = Plant.create(plant_params)
     render json: plant, status: :created
   end
+  def update
+    #find
+    
+    plant=Plant.find_by(id: params[:id])
+    
+    if plant
+      plant.update(plant_params)
+      render json: plant
+    else
+      render json: {error:"plant not found"}
+    end
+  end
+  
+  def destroy
+    #find
+    plant=Plant.find_by(id: params[:id])
+    if plant
+      plant.destroy
+      head :no_content
+    else
+      render json: {error:"plant not found"}
+    end
+
+  end
 
   private
 
